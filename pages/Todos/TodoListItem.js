@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import TodosContext from '../store';
 import TodoContext from '../store';
@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 
 const ToDoListItem = () => {
 
+	const [disabled, setDisabled] = useState(true);
+	const [newTitle, setNewTitle] = useState('');
 	const { todos, setTodos } = useContext(TodosContext)
 	const deleteTodo = (id) => {
 	  fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
@@ -17,12 +19,38 @@ const ToDoListItem = () => {
 	  	}
 	  })
 	}
+	const toggleEdit = (todo) => {
+		console.log(todo.id < 201)
+	  if (todo.id < 201) {
+	  	fetch(`https://jsonplaceholder.typicode.com/todos/${todo.id}`, {
+	  	  method: 'PUT',
+	  	  headers: {
+	  	    'content-type': 'application/json'
+	  	  },
+	  	  body: JSON.stringify({completed: !todo.completed})
+  		})
+  	  .then(res => res.json())
+  	  .then(data =>
+  	  	setTodos((todos) => { 
+  	  		const updatedTodos = todos.map((todoItem) => 
+  	  			todoItem.id === data.id ? {...todoItem, completed: data.completed} : todoItem
+  	  		)
+  	  		return updatedTodos;
+  	  	})
+  	  );
+	  } else {
+	  	setTodos((todos) => { 
+	  		const updatedTodos = todos.map((todoItem) => 
+	  			todoItem.id === todo.id ? {...todoItem, completed: !todo.completed} : todoItem
+	  		)
+	  		return updatedTodos;
+	  	})
+	  }
+	}
 	const todoItems = todos.map(todo => (
 	  <div key={todo.id}>
-	  	{todo.completed ? 
-	    	<a href={todo.id}><h3>{todo.title}</h3></a> :
-	    	<a href={todo.id}><s><h3>{todo.title}</h3></s></a>
-	  	}
+	  	{todo.completed ? <s><p>{todo.title}</p></s> : <p>{todo.title}</p>}
+	  	<input type="checkbox" id={todo.id} checked={todo.completed} onClick={() => toggleEdit(todo)}/>
 	  	<button onClick={() => deleteTodo(todo.id)}>Delete</button>
 	  </div>
 	));
@@ -32,10 +60,5 @@ const ToDoListItem = () => {
 		</div>
 	)
 }
-
-const mapStateToProps = state => ({
-  todos: state.todos.items,
-  newTodo: state.todos.item,
-});
 
 export default ToDoListItem
