@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-/*import 'tailwindcss/tailwind.css'*/
+import 'tailwindcss/tailwind.css'
 import { TodosProvider, TodoProvider } from './store';
 import { useState, useEffect } from 'react';
 

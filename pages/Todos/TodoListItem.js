@@ -47,16 +47,16 @@ const ToDoListItem = () => {
 	  }
 	}
 	const todoItems = todos.map(todo => (
-	  <div key={todo.id}>
-	  	{todo.completed ? <s><p>{todo.title}</p></s> : <p>{todo.title}</p>}
-	  	<input type="checkbox" id={todo.id} checked={todo.completed} onClick={() => toggleEdit(todo)}/>
-	  	<button onClick={() => deleteTodo(todo.id)}>Delete</button>
-	  </div>
+	  <li key={todo.id} class="h-6 flex justify-between items-center sm:h-7">
+	  	<input class="" type="checkbox" id={todo.id} checked={todo.completed} onClick={() => toggleEdit(todo)}/>
+	  	{todo.completed ? <s class="text-left justify-self-start text-sm px-3 font-bold text-gray-400">{todo.title}</s> : <inline class="text-sm px-3 font-bold text-gray-900">{todo.title}</inline>}
+	  	<button class="text-red-400 hover:text-red-600" onClick={() => deleteTodo(todo.id)}><i class="fa fa-trash" aria-hidden="true"></i></button>
+	  </li>
 	));
 	return(
-		<div>
+		<ul class="bg-green-100">
 			{todoItems}
-		</div>
+		</ul>
 	)
 }
 

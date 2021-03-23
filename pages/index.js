@@ -7,9 +7,10 @@ const Home = () => {
   return (
       <div className={styles.container}>
         <Head>
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
           <title>To-Do-List</title>
         </Head>
-        <h1>To-Do-List</h1>
+        <h1 class="text-xl font-bold">To-Do-List</h1>
         <main className={styles.main}>
           <div>
             <TodoList />

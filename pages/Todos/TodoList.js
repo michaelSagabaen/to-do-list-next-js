@@ -30,16 +30,15 @@ const TodoList = () => {
 			  <h2>Add Todo</h2>
 			  <form onSubmit={onSubmit}>
 			    <div>
-			      <label>Title: </label>
 			      <input
 			        type="text"
 			        name="title"
 			        onChange={(e) => setTodoTitle(e.target.value)}
 			        value={todoTitle}
+			        placeholder="Todo Title"
 			      />
+			    <button class="px-2"type="submit">Submit</button>
 			    </div>
-			    <br />
-			    <button type="submit">Submit</button>
 			  </form>
 			</div>
 			<hr />
