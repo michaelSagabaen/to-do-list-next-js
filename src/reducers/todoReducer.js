@@ -29,8 +29,7 @@ export default function(state = initialState, action) {
 			};
 		case DELETE_TODO:
 			return {
-				...state,
-				item: action.payload
+				...state
 			};
 		default:
 			return state;

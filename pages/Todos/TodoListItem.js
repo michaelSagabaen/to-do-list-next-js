@@ -1,45 +1,36 @@
-import React, { Component } from "react";
+import { useContext } from "react";
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import TodosContext from '../store';
+import TodoContext from '../store';
 import { useRouter } from 'next/router';
-import { getTodos, deleteTodo } from '../api/todoActions';
-import TodoListItem from "./TodoListItem";
 
-class ToDoListItem extends Component {
+const ToDoListItem = () => {
 
-	componentDidMount(){
-		this.props.getTodos();
+	const { todos, setTodos } = useContext(TodosContext)
+	const deleteTodo = (id) => {
+	  fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+	  method: 'DELETE'
+		})
+	  .then(res => {
+	  	if (res.staus = 200){
+	  		setTodos(todos.filter((todo) => todo.id !== id))
+	  	}
+	  })
 	}
-
-	componentDidUpdate(nextProps) {
-		if(nextProps.newTodo) {
-			console.log(this.props)
-			this.props.todos.unshift(nextProps.newTodo);
-		}
-	}
-	deleteTodo(id) {
-		this.props.deleteTodo(id);
-		window.location.href = '/'
-
-	}
-	toggleTodo(e) {
-		e.preventDefault();
-		
-	}
-	render(){
-		const todoItems = this.props.todos.map(todo => (
-			  <div key={todo.id}>
-			    <a href={todo.id}><h3>{todo.title}</h3></a>
-			    <button onClick={this.toggleTodo}>{todo.completed ? "Completed" : "Ongoing"}</button>
-			  	<button onClick={() => this.deleteTodo(todo.id)} >Delete</button>
-			  </div>
-		));
-		return(
-			<div>
-				{todoItems}
-			</div>
-		)
-	}
+	const todoItems = todos.map(todo => (
+	  <div key={todo.id}>
+	  	{todo.completed ? 
+	    	<a href={todo.id}><h3>{todo.title}</h3></a> :
+	    	<a href={todo.id}><s><h3>{todo.title}</h3></s></a>
+	  	}
+	  	<button onClick={() => deleteTodo(todo.id)}>Delete</button>
+	  </div>
+	));
+	return(
+		<div>
+			{todoItems}
+		</div>
+	)
 }
 
 const mapStateToProps = state => ({
@@ -47,4 +38,4 @@ const mapStateToProps = state => ({
   newTodo: state.todos.item,
 });
 
-export default connect(mapStateToProps, { getTodos,deleteTodo })(ToDoListItem)
+export default ToDoListItem

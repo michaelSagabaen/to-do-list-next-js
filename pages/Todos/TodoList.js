@@ -1,4 +1,56 @@
-import React, { Component } from "react";
+import { useContext, useState } from "react";
+import PropTypes from "prop-types";
+import TodosContext from '../store';
+import TodoListItem from "./TodoListItem";
+
+const TodoList = () => {
+	const { todos, setTodos } = useContext(TodosContext)
+	const [todoTitle, setTodoTitle] = useState();
+	const onSubmit = (e) => {
+		e.preventDefault();
+	  fetch('https://jsonplaceholder.typicode.com/todos', {
+	  method: 'POST',
+	  headers: {
+	    'content-type': 'application/json'
+	  },
+	  body: JSON.stringify({ title: todoTitle, completed: false })
+		})
+	  .then(res => res.json())
+	  .then(data => {
+			todos.unshift(data)
+	  	setTodos(todos)
+	  	console.log(todos)
+	  	setTodoTitle('') 	
+	  })
+	}
+
+	return (
+		<div>
+			<div>
+			  <h2>Add Todo</h2>
+			  <form onSubmit={onSubmit}>
+			    <div>
+			      <label>Title: </label>
+			      <hr />
+			      <input
+			        type="text"
+			        name="title"
+			        onChange={(e) => setTodoTitle(e.target.value)}
+			        value={todoTitle}
+			      />
+			    </div>
+			    <br />
+			    <button type="submit">Submit</button>
+			  </form>
+			</div>
+			<TodoListItem />
+		</div>
+	)
+}
+
+export default TodoList
+
+/*import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import TodoListItem from "./TodoListItem";
@@ -64,4 +116,4 @@ TodoList.propTypes = {
 	createTodo: PropTypes.func.isRequired
 };
 
-export default connect(null, { createTodo })(TodoList);
+export default connect(null, { createTodo })(TodoList);*/

@@ -1,15 +1,9 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from '../src/reducers';
+import { useContext, createContext } from "react";
 
-const initialState = {};
+const TodosContext = createContext();
+const TodoContext = createContext();
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  compose(
-    applyMiddleware(thunk), 
-  )
-);
+export const TodosProvider = TodosContext.Provider
+export const TodoProvider = TodoContext.Provider
 
-export default store;
+export default TodosContext

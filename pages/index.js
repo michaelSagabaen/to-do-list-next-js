@@ -1,13 +1,10 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { Provider } from 'react-redux';
 import TodoList from './Todos/TodoList';
 
-import store from './store';
 
 const Home = () => {
   return (
-    <Provider store={store}>
       <div className={styles.container}>
         <Head>
           <title>To-Do-List</title>
@@ -23,7 +20,6 @@ const Home = () => {
         <footer className={styles.footer}>
         </footer>
       </div>
-    </Provider>
   )
 }
 

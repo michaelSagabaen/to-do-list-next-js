@@ -65,6 +65,7 @@ export const deleteTodo = id => dispatch => {
   .then(todo =>
     dispatch({
       type: DELETE_TODO,
+      payload: todo
     })
   );
 };
