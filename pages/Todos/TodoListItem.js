@@ -20,7 +20,6 @@ const ToDoListItem = () => {
 	  })
 	}
 	const toggleEdit = (todo) => {
-		console.log(todo.id < 201)
 	  if (todo.id < 201) {
 	  	fetch(`https://jsonplaceholder.typicode.com/todos/${todo.id}`, {
 	  	  method: 'PUT',
