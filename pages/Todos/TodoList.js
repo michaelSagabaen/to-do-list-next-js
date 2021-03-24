@@ -37,12 +37,12 @@ const TodoList = () => {
               value={todoTitle}
               placeholder="Add Todo List"
             />
-            <button className="px-2 bg-blue-800 hover:bg-blue-400 text-white " type="submit">Add To Do</button>
+            <button className="ml-3 my-2 px-4 py-1 bg-blue-800 hover:bg-blue-400 text-white rounded-lg" type="submit">Add To Do</button>
           </div>
         </form>
       </div>
       <hr />
-      <div className="h-6 flex items-center sm:h-7">
+      <div className="h-6 flex items-center sm:h-7 my-2">
         <input
           type="text"
           name="filter"

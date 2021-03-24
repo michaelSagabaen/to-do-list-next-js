@@ -15,7 +15,8 @@ const ToDoListItem = () => {
       method: 'DELETE',
     })
       .then((res) => {
-        { res.status = 200 ? setTodos(todos.filter((todo) => todo.id !== id)) : null; }
+        {res.ok ? setTodos(todos.filter((todo) => todo.id !== id)) : null}
+
       });
   };
   const toggleEdit = (todo) => {
@@ -63,13 +64,13 @@ const ToDoListItem = () => {
 
   const todoItems = displayTodos.map((todo) => (
     <li key={todo.id} className="h-6 flex justify-between items-center sm:h-7">
-      <input className="" type="checkbox" id={todo.id} checked={todo.completed} onClick={() => toggleEdit(todo)} />
+      <input className="mx-2" type="checkbox" id={todo.id} checked={todo.completed} onClick={() => toggleEdit(todo)} />
       {todo.completed ? <s className="font-mono text-left justify-self-start text-sm px-3 font-bold text-gray-400">{todo.title}</s> : <inline className="font-mono text-sm px-3 font-bold text-gray-900">{todo.title}</inline>}
-      <button className="text-red-400 hover:text-red-600" onClick={() => deleteTodo(todo.id)}><i className="fa fa-trash" aria-hidden="true" /></button>
+      <button className="px-2 text-yellow-500 hover:text-red-600" onClick={() => deleteTodo(todo.id)}><i className="fa fa-trash" aria-hidden="true" /></button>
     </li>
   ));
   return (
-    <ul className="bg-green-100">
+    <ul className="bg-yellow-100 divide-black divide-y divide-opacity-25">
       {todoItems}
     </ul>
   );
